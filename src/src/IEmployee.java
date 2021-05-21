@@ -16,10 +16,14 @@ import java.util.Set;
  */
 public interface IEmployee {
     void addEmployee(Employee employee);
-    void fireEmployee(Employee employee);
-    void changeEmployeeInfo();
+    void fireEmployee(String firsName,String lastName, String middleName);
+    void changeEmployeeInfo(String firsName, String lastName, String middleName,
+                            TypePosition newPosition,
+                            String newPhoneNumber,
+                            Employee newChief,
+                            int newSalary);
     Employee findEmployee(String firstName, String lastName, String middleName);
-    Set<Employee> findEmployees(String position);
+    Set<Employee> findEmployees(TypePosition position);
     Set<Employee> findEmployees(TypeWorkDepart nameTypeWorkDepart);
     Set<Employee> findEmployees(String firstName, String lastName, String middleName);
 }

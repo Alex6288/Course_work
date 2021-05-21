@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+
 /**
  * При-
  *  * ложение должно иметь возможность создавать следующие отчеты: структура ор-
@@ -8,8 +10,8 @@
  *  * файлов.
  */
 public interface IReport {
-    void getStructureOrganisation();
-    void getAvSalary();
+    void getStructureOrganisation(boolean inFile);
+    BigDecimal getAvSalary();
     void getTopExpensiveEmployee();
     void getTopDevotedEmployee();
 }

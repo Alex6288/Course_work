@@ -1,7 +1,5 @@
-import java.math.BigDecimal;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  * ФИО сотрудника, дату рож-
@@ -9,71 +7,61 @@ import java.util.Scanner;
  * сотрудник, информацию о непосредственном начальнике (если такой есть), дату
  * приема на работу, зарплату.
  */
-public class Employee {
+public class Employee implements Serializable {
 
     private String firstName;
     private String lastName;
     private String middleName;
-    private Date birthday;
-    private TypeEmployee typeEmployee;
+    private java.sql.Date birthday;
+    private TypeGender gender;
     private String phoneNumber;
-    private String position;
+    private TypePosition position;
     private TypeWorkDepart nameTypeWorkDepart;
     private Employee chief;
     private Date dateStartWork;
-    private BigDecimal salary;
+    private int salary;
 
-    private String userPassword;
-    private String userName;
-
+    private Ui userNamePass;
 
     public Employee(String firstName,
                     String lastName,
                     String middleName,
-                    Date birthday,
-                    TypeEmployee typeEmployee,
+                    java.sql.Date birthday,
+                    TypeGender gender,
                     String phoneNumber,
-                    String position,
+                    TypePosition position,
                     TypeWorkDepart nameWorkDepart,
                     Employee chief,
                     Date dateStartWork,
-                    BigDecimal salary) {
+                    int salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.birthday = birthday;
-        this.typeEmployee = typeEmployee;
+        this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.position = position;
         this.nameTypeWorkDepart = nameWorkDepart;
         this.chief = chief;
         this.dateStartWork = dateStartWork;
         this.salary = salary;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Создайте логин для нового сотрудника");
-        this.userName = scanner.nextLine().trim();
-        System.out.println("Создайте пароль для нового сотрудника");
-        this.userPassword = scanner.nextLine();
+        setUserNamePass();
     }
 
     public void setUserNamePass() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Создайте логин для нового сотрудника");
-        this.userName = scanner.nextLine().trim();
-        System.out.println("Создайте пароль для нового сотрудника");
-        this.userPassword = scanner.nextLine();
+        this.userNamePass = new Ui();
     }
 
     public void changeUserName(String newName) {
-        this.userName = newName;
+        this.userNamePass.setUserName(newName);
     }
 
     public String getUserName() {
-        return userName;
+        return userNamePass.getUserName();
     }
 
     public String getUserPassword() {
-        return userPassword;
+        return userNamePass.getUserPassword();
     }
 
     public String getFirstName() {
@@ -92,15 +80,15 @@ public class Employee {
         return birthday;
     }
 
-    public TypeEmployee getTypeEmployee() {
-        return typeEmployee;
+    public TypeGender getGender() {
+        return gender;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public String getPosition() {
+    public TypePosition getPosition() {
         return position;
     }
 
@@ -116,7 +104,45 @@ public class Employee {
         return dateStartWork;
     }
 
-    public BigDecimal getSalary() {
+    public int getSalary() {
         return salary;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setPosition(TypePosition position) {
+        this.position = position;
+    }
+
+    public void setChief(Employee chief) {
+        this.chief = chief;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public String getFullName(){
+        return firstName + " " + lastName + " " + middleName;
+    }
+
+    @Override
+    public String toString() {
+        String s = chief == null ? "нет начальника" : (chief.getFirstName() + " " + chief.getLastName() + " " + chief.getMiddleName());
+        return "Employee{" +
+                "firstName='" + firstName + '\'' + "\n" +
+                ", lastName='" + lastName + '\'' + "\n" +
+                ", middleName='" + middleName + '\'' + "\n" +
+                ", birthday=" + birthday + "\n" +
+                ", gender=" + gender + "\n" +
+                ", phoneNumber='" + phoneNumber + '\'' + "\n" +
+                ", position=" + position + "\n" +
+                ", nameTypeWorkDepart=" + nameTypeWorkDepart + "\n" +
+                ", chief=" + s + "\n" +
+                ", dateStartWork=" + dateStartWork + "\n" +
+                ", salary=" + salary + "\n" +
+                '}';
     }
 }
