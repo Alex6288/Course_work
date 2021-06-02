@@ -1,3 +1,9 @@
+package entites;
+
+import entites.Employee;
+import entites.TypePosition;
+import entites.TypeWorkDepart;
+
 import java.util.Set;
 
 /**

@@ -1,3 +1,5 @@
+package entites;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -45,11 +47,11 @@ public class Employee implements Serializable {
         this.chief = chief;
         this.dateStartWork = dateStartWork;
         this.salary = salary;
-        setUserNamePass();
+        setUserNamePass("","");
     }
 
-    public void setUserNamePass() {
-        this.userNamePass = new Ui();
+    public void setUserNamePass(String name, String pass) {
+        this.userNamePass = new Ui(name, pass);
     }
 
     public void changeUserName(String newName) {
@@ -131,7 +133,7 @@ public class Employee implements Serializable {
     @Override
     public String toString() {
         String s = chief == null ? "нет начальника" : (chief.getFirstName() + " " + chief.getLastName() + " " + chief.getMiddleName());
-        return "Employee{" +
+        return "entites.Employee{" +
                 "firstName='" + firstName + '\'' + "\n" +
                 ", lastName='" + lastName + '\'' + "\n" +
                 ", middleName='" + middleName + '\'' + "\n" +

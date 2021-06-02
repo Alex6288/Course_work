@@ -1,4 +1,7 @@
+package entites;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * При-
@@ -10,8 +13,8 @@ import java.math.BigDecimal;
  *  * файлов.
  */
 public interface IReport {
-    void getStructureOrganisation(boolean inFile);
+    List<String> getStructureOrganisation();
     BigDecimal getAvSalary();
-    void getTopExpensiveEmployee();
-    void getTopDevotedEmployee();
+    List<String> getTopExpensiveEmployee();
+    List<String> getTopDevotedEmployee();
 }
