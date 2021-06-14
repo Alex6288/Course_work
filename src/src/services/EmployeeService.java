@@ -1,22 +1,28 @@
 package services;
 
 import entites.*;
+import errors.FullNameExpected;
+import errors.UserNameExist;
 import repository.FileEmployeesDao;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class EmployeeService implements IEmployee {
+public class EmployeeService implements IEmployeeService {
 
     private AccountingSystem accountingSystem;
     private FileEmployeesDao fileEmployeesDao;
 
-    public EmployeeService() {
-        this.fileEmployeesDao = new FileEmployeesDao();
-        if (fileEmployeesDao.readFromFileEmployeeList().equals(null)) {
-            this.accountingSystem = new AccountingSystem();
+    public static final EmployeeService INSTANCE = new EmployeeService();
+
+    private EmployeeService() {
+        this.fileEmployeesDao = FileEmployeesDao.INSTANCE;
+        this.accountingSystem = AccountingSystem.INSTANCE;
+        if (fileEmployeesDao.readFromFileEmployeeList() == null) {
+            System.out.println("Файл данных в сотрудниках пустой");
+            this.accountingSystem = AccountingSystem.INSTANCE;
         } else {
-            this.accountingSystem = new AccountingSystem(fileEmployeesDao.readFromFileUserNamePassMap(),
+            this.accountingSystem.loadData(fileEmployeesDao.readFromFileUserNamePassMap(),
                     fileEmployeesDao.readFromFileEmployeeList()
             );
         }
@@ -28,30 +34,53 @@ public class EmployeeService implements IEmployee {
     }
 
     @Override
-    public void addEmployee(Employee employee) {
+    public void addEmployee(Employee employee) throws UserNameExist {
         while (accountingSystem.getUserNamePass().containsKey(employee.getUserName())) {
             System.out.println("Такое имя пользователя уже существует, напишите новое");
-            //employee.setUserNamePass(); 
+            throw new UserNameExist();
         }
         accountingSystem.getUserNamePass().put(employee.getUserName(), employee.getUserPassword());
-        accountingSystem.getEmployees().add(employee);
+        accountingSystem.getEmployees().add(setChief(employee));
         refreshData();
     }
 
+    /**
+     * Метод устанавливает начальника в организации в зависимости от позиции
+     * У каждой должности свой приоритет
+     * @param empl новый сотрудник сотрудкик
+     */
+    private Employee setChief(Employee empl){
+            for (Employee employee : accountingSystem.getEmployees()) {
+                if (employee.getNameWorkDepart().equals(empl.getNameWorkDepart())) {
+                    if (employee.getPosition().getPriority() == empl.getPosition().getPriority() - 1) {
+                        employee.setChief(empl);
+                    }
+                    if (empl.getPosition().getPriority() + 1 == employee.getPosition().getPriority()) {
+                        empl.setChief(employee);
+                    }
+                }
+            }
+            return empl;
+
+    }
+
+
     @Override
     public void fireEmployee(String firsName, String lastName, String middleName) {
-        accountingSystem.getEmployees().remove(findEmployee(firsName, lastName, middleName));
-        refreshData();
+        if (findEmployee(firsName, lastName, middleName) != null) {
+            Employee fireEmployee = findEmployee(firsName, lastName, middleName);
+            accountingSystem.getUserNamePass().remove(fireEmployee.getUserName());
+            accountingSystem.getEmployees().remove(fireEmployee);
+            refreshData();
+        }
     }
 
     @Override
     public void changeEmployeeInfo(String firsName, String lastName, String middleName,
                                    TypePosition newPosition,
                                    String newPhoneNumber,
-                                   Employee newChief,
                                    int newSalary) {
         Employee newEmployee = findEmployee(firsName, lastName, middleName);
-        newEmployee.setChief(newChief);
         newEmployee.setPhoneNumber(newPhoneNumber);
         newEmployee.setSalary(newSalary);
         newEmployee.setPosition(newPosition);
@@ -60,15 +89,27 @@ public class EmployeeService implements IEmployee {
 
     @Override
     public Employee findEmployee(String firstName, String lastName, String middleName) {
+        accountingSystem.getEmployees().forEach(System.out::println);
+        System.out.println();
         for (Employee employee : accountingSystem.getEmployees()) {
             if (employee.getFirstName().equals(firstName) &&
-                    employee.getFirstName().equals(lastName) &&
-                    employee.getLastName().equals(lastName)) {
+                    employee.getLastName().equals(lastName) &&
+                    employee.getMiddleName().equals(middleName)) {
                 return employee;
             }
         }
-        System.out.println("Такого сотрудника нет" + firstName + " " + lastName);
+        System.out.println("Такого сотрудника нет " + firstName + " " + lastName);
         return null;
+    }
+
+    public Employee findEmployee(String fullName) throws FullNameExpected {
+        String[] names = fullName.split("\s+");
+        if (names.length < 3) {
+            throw new FullNameExpected();
+        }
+        System.out.println(fullName);
+        System.out.println(names[0] + " " + names[1] + " " +  names[2]);
+        return findEmployee(names[0], names[1], names[2]);
     }
 
     @Override
@@ -104,6 +145,14 @@ public class EmployeeService implements IEmployee {
             }
         }
         return findEmployees;
+    }
+
+    public Set<Employee> findEmployees(String fullName) throws FullNameExpected {
+        String[] names = fullName.split("\s+");
+        if (names.length < 3) {
+            throw new FullNameExpected();
+        }
+        return findEmployees(names[0], names[1], names[2]);
     }
 
     public Set<Employee> getEmployees() {

@@ -1,8 +1,9 @@
-package entites;
+package services;
 
 import entites.Employee;
 import entites.TypePosition;
 import entites.TypeWorkDepart;
+import errors.UserNameExist;
 
 import java.util.Set;
 
@@ -20,13 +21,12 @@ import java.util.Set;
  * Приложение должно сохранять и загружать информацию об организации из
  * файлов.
  */
-public interface IEmployee {
-    void addEmployee(Employee employee);
+public interface IEmployeeService {
+    void addEmployee(Employee employee) throws UserNameExist;
     void fireEmployee(String firsName,String lastName, String middleName);
     void changeEmployeeInfo(String firsName, String lastName, String middleName,
                             TypePosition newPosition,
                             String newPhoneNumber,
-                            Employee newChief,
                             int newSalary);
     Employee findEmployee(String firstName, String lastName, String middleName);
     Set<Employee> findEmployees(TypePosition position);

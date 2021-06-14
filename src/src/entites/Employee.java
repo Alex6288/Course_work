@@ -1,7 +1,7 @@
 package entites;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * ФИО сотрудника, дату рож-
@@ -14,27 +14,26 @@ public class Employee implements Serializable {
     private String firstName;
     private String lastName;
     private String middleName;
-    private java.sql.Date birthday;
+    private LocalDate birthday;
     private TypeGender gender;
     private String phoneNumber;
     private TypePosition position;
     private TypeWorkDepart nameTypeWorkDepart;
     private Employee chief;
-    private Date dateStartWork;
+    private LocalDate dateStartWork;
     private int salary;
 
-    private Ui userNamePass;
+    private LoginPass userNamePass;
 
     public Employee(String firstName,
                     String lastName,
                     String middleName,
-                    java.sql.Date birthday,
+                    LocalDate birthday,
                     TypeGender gender,
                     String phoneNumber,
                     TypePosition position,
                     TypeWorkDepart nameWorkDepart,
-                    Employee chief,
-                    Date dateStartWork,
+                    LocalDate dateStartWork,
                     int salary) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,14 +43,14 @@ public class Employee implements Serializable {
         this.phoneNumber = phoneNumber;
         this.position = position;
         this.nameTypeWorkDepart = nameWorkDepart;
-        this.chief = chief;
+        this.chief = null;
         this.dateStartWork = dateStartWork;
         this.salary = salary;
-        setUserNamePass("","");
+        setUserNamePass("", "");
     }
 
     public void setUserNamePass(String name, String pass) {
-        this.userNamePass = new Ui(name, pass);
+        this.userNamePass = new LoginPass(name, pass);
     }
 
     public void changeUserName(String newName) {
@@ -78,7 +77,7 @@ public class Employee implements Serializable {
         return middleName;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
@@ -102,7 +101,7 @@ public class Employee implements Serializable {
         return chief;
     }
 
-    public Date getDateStartWork() {
+    public LocalDate getDateStartWork() {
         return dateStartWork;
     }
 
@@ -126,25 +125,24 @@ public class Employee implements Serializable {
         this.salary = salary;
     }
 
-    public String getFullName(){
+    public String getFullName() {
         return firstName + " " + lastName + " " + middleName;
     }
 
     @Override
     public String toString() {
         String s = chief == null ? "нет начальника" : (chief.getFirstName() + " " + chief.getLastName() + " " + chief.getMiddleName());
-        return "entites.Employee{" +
-                "firstName='" + firstName + '\'' + "\n" +
-                ", lastName='" + lastName + '\'' + "\n" +
-                ", middleName='" + middleName + '\'' + "\n" +
-                ", birthday=" + birthday + "\n" +
-                ", gender=" + gender + "\n" +
-                ", phoneNumber='" + phoneNumber + '\'' + "\n" +
-                ", position=" + position + "\n" +
-                ", nameTypeWorkDepart=" + nameTypeWorkDepart + "\n" +
-                ", chief=" + s + "\n" +
-                ", dateStartWork=" + dateStartWork + "\n" +
-                ", salary=" + salary + "\n" +
-                '}';
+        return "Сотрудник : \n" +
+                "Имя = " + firstName + "\n" +
+                ", Фамилия = " + lastName + "\n" +
+                ", Отчество = " + middleName + "\n" +
+                ", Дата рождения = " + birthday + "\n" +
+                ", Пол = " + gender.getName() + "\n" +
+                ", Номер телефона = " + phoneNumber + "\n" +
+                ", Должность = " + position.getName() + "\n" +
+                ", Имя отдела = " + nameTypeWorkDepart.getName() + "\n" +
+                ", Имя начальника = " + s + "\n" +
+                ", Дата начала работы = " + dateStartWork + "\n" +
+                ", Зарплата = " + salary + "\n";
     }
 }

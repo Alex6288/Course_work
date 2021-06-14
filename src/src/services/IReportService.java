@@ -1,4 +1,4 @@
-package entites;
+package services;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  *  * Приложение должно сохранять и загружать информацию об организации из
  *  * файлов.
  */
-public interface IReport {
+public interface IReportService {
     List<String> getStructureOrganisation();
     BigDecimal getAvSalary();
     List<String> getTopExpensiveEmployee();

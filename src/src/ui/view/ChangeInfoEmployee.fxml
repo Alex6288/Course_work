@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="550.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.ControllerChangeInfoEmployee">
+    <children>
+        <AnchorPane layoutX="-5.0" layoutY="71.0" prefHeight="496.0" prefWidth="557.0" style="-fx-background-color: #fafafa;">
+            <children>
+                <TextField fx:id="firstName" layoutX="14.0" layoutY="58.0" promptText="Имя" />
+                <Button fx:id="okButton" layoutX="172.0" layoutY="424.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="72.0" style="-fx-background-color: #2E3348 #2E3348;" text="Ок" textFill="WHITE">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Button>
+            <TextField fx:id="middleName" layoutX="372.0" layoutY="58.0" promptText="Отчество" />
+            <TextField fx:id="phoneNumberNewField" layoutX="41.0" layoutY="160.0" promptText="Новый номер телефона" />
+            <ChoiceBox fx:id="nameDepartNewBox" layoutX="41.0" layoutY="213.0" prefWidth="150.0" />
+            <Label fx:id="positionLabel" layoutX="42.0" layoutY="248.0" text="Должность" />
+            <Label fx:id="newDataLabel" layoutX="14.0" layoutY="116.0" text="Новые данные">
+               <font>
+                  <Font size="26.0" />
+               </font></Label>
+            <TextField fx:id="lastName" layoutX="197.0" layoutY="58.0" promptText="Фамилия" />
+            <Label fx:id="nameDepartLabel" layoutX="43.0" layoutY="196.0" text="Название отдела" />
+            <ChoiceBox fx:id="positionNewBox" layoutX="39.0" layoutY="265.0" prefWidth="150.0" />
+            <Label fx:id="salaryLabel" layoutX="39.0" layoutY="299.0" text="Зарплата" />
+            <TextField fx:id="salaryNew" layoutX="41.0" layoutY="316.0" promptText="Сумма" />
+            <Button fx:id="cancelButton" layoutX="281.0" layoutY="424.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #2E3348 #2E3348;" text="Отмена" textFill="WHITE">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+            <Label fx:id="employeeLabel" layoutX="14.0" layoutY="32.0" text="Сотрдник " />
+            </children>
+        </AnchorPane>
+        <Label fx:id="changeInfoEmployeeLabel" layoutX="113.0" layoutY="40.0" prefHeight="31.0" prefWidth="325.0" text="Изменить данные сотрудника" textFill="#fcfcfc">
+            <font>
+                <Font name="Times New Roman" size="25.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
