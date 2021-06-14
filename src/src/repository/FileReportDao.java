@@ -1,8 +1,6 @@
 package repository;
 
 import entites.Employee;
-import entites.TypePosition;
-import entites.TypeWorkDepart;
 import services.ReportService;
 
 import java.io.*;
@@ -13,6 +11,8 @@ import java.util.*;
 
 public class FileReportDao {
 
+    public static final FileReportDao INSTANCE = new FileReportDao();
+
     private ReportService reportService;
 
     private static final String FILE_NAME_REPORT = "report.txt";
@@ -21,8 +21,8 @@ public class FileReportDao {
     private File reportFile;
     private File fileEmployeeReport;
 
-    public FileReportDao() {
-        this.reportService = new ReportService();
+    private FileReportDao() {
+        this.reportService = ReportService.INSTANCE;
 
         this.fileEmployeeReport = new File(FILE_NAME_EMPLOYEE_REPORT);
         this.reportFile = new File(FILE_NAME_REPORT);
@@ -37,8 +37,6 @@ public class FileReportDao {
             e.printStackTrace();
         }
     }
-
-
 
     /**
      * Записывает полученные строки в файл отчета

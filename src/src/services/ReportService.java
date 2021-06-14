@@ -1,9 +1,9 @@
 package services;
 
 import entites.Employee;
-import entites.IReport;
 import entites.TypePosition;
 import entites.TypeWorkDepart;
+import errors.FullNameExpected;
 import repository.FileEmployeesDao;
 import repository.FileReportDao;
 
@@ -14,7 +14,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ReportService implements IReport {
+public class ReportService implements IReportService {
+
+    public static final ReportService INSTANCE = new ReportService();
 
     private final int NUM_EMPLOYEES_FOR_REPORT = 10;
 
@@ -23,10 +25,10 @@ public class ReportService implements IReport {
     private FileReportDao fileReportDao;
     private FileEmployeesDao fileEmployeesDao;
 
-    public ReportService() {
-        this.employeeService = new EmployeeService();
-        this.fileEmployeesDao = new FileEmployeesDao();
-        this.fileReportDao = new FileReportDao();
+    private ReportService() {
+        this.employeeService = EmployeeService.INSTANCE;
+        this.fileEmployeesDao = FileEmployeesDao.INSTANCE;
+        this.fileReportDao = FileReportDao.INSTANCE;
     }
 
     public EmployeeService getEmployeeService() {
@@ -63,8 +65,12 @@ public class ReportService implements IReport {
         fileReportDao.saveToFileFindEmployee(employeeService.findEmployee(firstName, lastName, middleName));
     }
 
-    public void saveToFileFindEmployeesPosition(TypePosition position){
-        fileReportDao.saveToFileFindEmployees(employeeService.findEmployees(position));
+    public void saveToFileFindEmployeeFullName(String fullName) throws FullNameExpected {
+        fileReportDao.saveToFileFindEmployee(employeeService.findEmployee(fullName));
+    }
+
+    public void saveToFileFindEmployeesNameWorkDepart(TypeWorkDepart depart){
+        fileReportDao.saveToFileFindEmployees(employeeService.findEmployees(depart));
     }
 
     public void saveToFileFindEmployeePosition(TypePosition position){
@@ -75,6 +81,10 @@ public class ReportService implements IReport {
         fileReportDao.saveToFileFindEmployees(employeeService.findEmployees(firstName, lastName, middleName));
     }
 
+    public void saveToFileFindEmployeesChiefName(String fullName) throws FullNameExpected {
+        fileReportDao.saveToFileFindEmployees(employeeService.findEmployees(fullName));
+    }
+
     /**
      * Составляет структуру организцаа по отделам
      * @return возвращает лист строк отчета
@@ -83,16 +93,17 @@ public class ReportService implements IReport {
     public List<String> getStructureOrganisation() {
         List<String> report = new ArrayList<>();
         for (TypeWorkDepart depart : TypeWorkDepart.values()) {
-            report.add("Имя отдела :" + depart.toString());
-            report.add("Количество сотрудников в отделе : " + employeeService.findEmployees(depart).size());
-            report.add("Имя начальника : " + getChiefName(depart));
-            report.add("Сотрудники :");
+            report.add("Имя отдела :" + depart.getName() + "\n");
+            report.add("Количество сотрудников в отделе : " + employeeService.findEmployees(depart).size() + "\n");
+            report.add("Имя начальника : " + getChiefName(depart) + "\n");
+            report.add("Сотрудники :" + "\n");
             for (Employee employee : employeeService.findEmployees(depart)) {
-                report.add( employee.getFullName());
+                report.add( employee.getFullName() + "\n");
             }
-            report.add( "Средняя зарплата по отделу : " + getAvSalary(depart));
+            report.add( "Средняя зарплата по отделу : " + getAvSalary(depart) + "\n");
         }
-        report.add( "Средняя зарплата по организации : " + getAvSalary());
+        report.add( "Средняя зарплата по организации : " + getAvSalary() + "\n");
+        report.add(" " + "\n");
         return report;
     }
 
@@ -101,7 +112,7 @@ public class ReportService implements IReport {
      * @return возвращает полное имя начальника департамента
      */
     private String getChiefName(TypeWorkDepart depart) {
-        ArrayList<Employee> chief = employeeService.findEmployees(TypePosition.CHIEF).stream()
+        ArrayList<Employee> chief = employeeService.findEmployees(TypePosition.CHIEF_DEPART).stream()
                 .takeWhile(employee -> employee.getNameWorkDepart().equals(depart))
                 .collect(Collectors.toCollection(ArrayList::new));
         return chief.size() == 0 ? "нет начальника" : chief.get(0).getFullName();
@@ -156,7 +167,7 @@ public class ReportService implements IReport {
                 .sorted(Comparator.comparing(Employee::getDateStartWork))
                 .limit(NUM_EMPLOYEES_FOR_REPORT)
                 .forEach(employee -> report.add(employee.getFullName() +
-                        " start = " + employee.getDateStartWork()));
+                        " начало работы : " + employee.getDateStartWork()));
         return report;
     }
 }

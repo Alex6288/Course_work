@@ -2,12 +2,12 @@ package entites;
 
 import java.io.Serializable;
 
-public class Ui implements Serializable {
+public class LoginPass implements Serializable {
 
     private String userPassword;
     private String userName;
 
-    public Ui(String userPassword, String userName) {
+    public LoginPass(String userName, String userPassword) {
         this.userPassword = userPassword;
         this.userName = userName;
     }

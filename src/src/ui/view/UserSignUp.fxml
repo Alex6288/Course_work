@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="815.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.ControllerSignUp">
+    <children>
+        <AnchorPane layoutX="1.0" layoutY="77.0" prefHeight="559.0" prefWidth="815.0" style="-fx-background-color: #fafafa;">
+            <children>
+                <TextField fx:id="firstNameField" layoutX="106.0" layoutY="58.0" promptText="Имя" />
+                <PasswordField fx:id="passwordField" layoutX="288.0" layoutY="104.0" promptText="Пароль" />
+                <Button fx:id="signUpButton" layoutX="133.0" layoutY="473.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="280.0" style="-fx-background-color: #2E3348 #2E3348;" text="Зарегестрироваться" textFill="WHITE">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Button>
+            <TextField fx:id="middleNameField" layoutX="476.0" layoutY="58.0" promptText="Отчество" />
+            <TextField fx:id="phoneNumberField" layoutX="309.0" layoutY="143.0" promptText="Номер телефона" />
+            <ChoiceBox fx:id="nameDepartBox" layoutX="106.0" layoutY="267.0" prefWidth="150.0" />
+            <Label fx:id="positionLabel" layoutX="106.0" layoutY="308.0" text="Должность" />
+            <ChoiceBox fx:id="genderBox" layoutX="106.0" layoutY="200.0" prefHeight="25.0" prefWidth="150.0" />
+            <Label fx:id="genderLabel" layoutX="106.0" layoutY="177.0" text="Пол" />
+            <TextField fx:id="lastNameField" layoutX="288.0" layoutY="58.0" promptText="Фамилия" />
+            <TextField fx:id="loginField" layoutX="106.0" layoutY="104.0" promptText="Логин" />
+            <Label fx:id="nameDepartLabel" layoutX="106.0" layoutY="237.0" text="Название отдела" />
+            <ChoiceBox fx:id="positionBox" layoutX="103.0" layoutY="334.0" prefWidth="150.0" />
+            <Label fx:id="salaryLabel" layoutX="106.0" layoutY="374.0" text="Зарплата" />
+            <TextField fx:id="salaryField" layoutX="106.0" layoutY="398.0" promptText="Сумма" />
+            <DatePicker fx:id="birthdayDatePicker" layoutX="106.0" layoutY="143.0" />
+            <Button fx:id="cancelButton" layoutX="455.0" layoutY="473.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" style="-fx-background-color: #2E3348 #2E3348;" text="Отмена" textFill="WHITE">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+            <Label fx:id="errorLabel" layoutX="106.0" layoutY="87.0" prefHeight="17.0" prefWidth="260.0" textFill="#ee0000" />
+            </children>
+        </AnchorPane>
+        <Label layoutX="278.0" layoutY="22.0" prefHeight="36.0" prefWidth="260.0" text="Система учета сотрудников " textFill="#fcfcfc">
+            <font>
+                <Font name="Times New Roman" size="21.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

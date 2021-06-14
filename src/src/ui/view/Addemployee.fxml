@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="550.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.ControllerAddEmployee">
+    <children>
+        <AnchorPane layoutX="-5.0" layoutY="71.0" prefHeight="496.0" prefWidth="557.0" style="-fx-background-color: #fafafa;">
+            <children>
+                <TextField fx:id="firstNameField" layoutX="14.0" layoutY="58.0" promptText="Имя" />
+                <PasswordField fx:id="passwordField" layoutX="197.0" layoutY="104.0" promptText="Пароль" />
+                <Button fx:id="okButton" layoutX="136.0" layoutY="424.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="72.0" style="-fx-background-color: #2E3348 #2E3348;" text="Ок" textFill="WHITE">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Button>
+            <TextField fx:id="middleNameField" layoutX="372.0" layoutY="58.0" promptText="Отчество" />
+            <TextField fx:id="phoneNumberField" layoutX="372.0" layoutY="104.0" promptText="Номер телефона" />
+            <ChoiceBox fx:id="nameDepartBox" layoutX="14.0" layoutY="267.0" prefWidth="150.0" />
+            <Label fx:id="positionLabel" layoutX="14.0" layoutY="308.0" text="Должность" />
+            <ChoiceBox fx:id="genderBox" layoutX="14.0" layoutY="202.0" prefHeight="25.0" prefWidth="150.0" />
+            <Label fx:id="genderLabel" layoutX="14.0" layoutY="185.0" text="Пол" />
+            <TextField fx:id="lastNameField" layoutX="197.0" layoutY="58.0" promptText="Фамилия" />
+            <TextField fx:id="loginField" layoutX="14.0" layoutY="104.0" promptText="Логин" />
+            <Label fx:id="nameDepartLabel" layoutX="14.0" layoutY="241.0" text="Название отдела" />
+            <ChoiceBox fx:id="positionBox" layoutX="14.0" layoutY="325.0" prefWidth="150.0" />
+            <Label fx:id="salaryLabel" layoutX="20.0" layoutY="361.0" text="Зарплата" />
+            <TextField fx:id="salaryField" layoutX="14.0" layoutY="378.0" promptText="Сумма" />
+            <DatePicker fx:id="birthdayDatePicker" layoutX="14.0" layoutY="152.0" />
+            <Label fx:id="genderLabel1" layoutX="14.0" layoutY="135.0" text="Дата рождения" />
+            <Button fx:id="cancelButton" layoutX="232.0" layoutY="424.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="132.0" style="-fx-background-color: #2E3348 #2E3348;" text="Отмена" textFill="WHITE">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+            <Label fx:id="errorLabel" layoutX="191.0" layoutY="30.0" prefHeight="17.0" prefWidth="221.0" textFill="RED" />
+            </children>
+        </AnchorPane>
+        <Label layoutX="178.0" layoutY="35.0" prefHeight="36.0" prefWidth="194.0" text="Добавить сотрудника" textFill="#fcfcfc">
+            <font>
+                <Font name="Times New Roman" size="21.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

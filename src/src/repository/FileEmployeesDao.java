@@ -4,17 +4,20 @@ import entites.Employee;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 public class FileEmployeesDao {
 
-    private final String FILE_NAME_USERS_PASSWORD_NAMES = "name_pass_users.txt";
-    private final String FILE_NAME_EMPLOYEE_LIST = "employee_list.bin";
+    public static final FileEmployeesDao INSTANCE = new FileEmployeesDao();
+
+    private static final String FILE_NAME_USERS_PASSWORD_NAMES = "name_pass_users.txt";
+    private static final String FILE_NAME_EMPLOYEE_LIST = "employee_list.bin";
 
     private File fileUsersNamePass;
     private File fileEmployeeList;
 
-    public FileEmployeesDao() {
+    private FileEmployeesDao() {
         fileUsersNamePass = new File(FILE_NAME_USERS_PASSWORD_NAMES);
         fileEmployeeList = new File(FILE_NAME_EMPLOYEE_LIST);
         try {
@@ -34,7 +37,7 @@ public class FileEmployeesDao {
      */
     public Set<Employee> readFromFileEmployeeList() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.fileEmployeeList))) {
-            return (Set<Employee>) ois.readObject();
+            return (HashSet<Employee>) ois.readObject();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
